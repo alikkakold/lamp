@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lamp! - {{ board.name }}</title>
+</head>
+<body>
+<h3>{{ board.name }} ({{ board.author.username }})</h3>
+
+{% for col in data %}
+    <div>
+        <h3>{{ col.name }}</h3>
+        <div>
+            {% for task in col.tasks %}
+                <p>{{ task.name }}</p>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endfor %}
+
+
+</body>
+</html>
