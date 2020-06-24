@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Boards
+
+<h4>Create new board</h4>
+<form action="{% url 'main:boards' user.username %}" method="post">
+    {% csrf_token %}
+    <input name="name" type="text">
+    <select name="type">
+        {% for type in board_types %}
+            <option value="{{ type.0 }}">{{ type.1 }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit">
+</form>
+
+{% for board in boards %}
+    <div>
+        <h4>
+            <a href="{% url 'main:board' board.author.username board.token %}">
+                {{ board.name }}
+
+            </a>
+        </h4>
+        <h3>
+            {{ board.type }}
+        </h3>
+        <p>
+            {{ board.author.username }}
+        </p>
+    </div>
+{% endfor %}
+
+Your teams
+
+{% for teammate_board in teammate_boards %}
+    <div>
+        <h4>
+            <a href="{% url 'main:board' teammate_board.board.author.username teammate_board.board.token %}">
+                {{ teammate_board.board.name }}
+
+            </a>
+        </h4>
+        <h3>
+            {{ teammate_board.board.type }}
+        </h3>
+        <p>
+            {{ teammate_board.board.author.username }}
+        </p>
+    </div>
+{% endfor %}
+
+
+</body>
+</html>
