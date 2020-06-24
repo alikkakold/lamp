@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'auth:join' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Enter username">
+    <input type="text" name="name" placeholder="Enter first name">
+    <input type="text" name="surname" placeholder="Enter surname">
+    <input type="email" name="email" placeholder="Enter email">
+    <input type="password" name="password" placeholder="Enter password">
+    <input type="submit">
+</form>
+</body>
+</html>
