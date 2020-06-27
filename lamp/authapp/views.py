@@ -29,6 +29,11 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user:
             auth.login(request, user)
-            # return redirect(reverse('main:main'))
+            return redirect(reverse('main:main'))
 
     return render(request, 'authapp/login.html')
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')

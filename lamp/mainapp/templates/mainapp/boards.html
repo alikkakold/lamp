@@ -1,60 +1,94 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Lamp - Sign up</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
-Boards
+{% include 'mainapp/includes/navbar.html' %}
 
-<h4>Create new board</h4>
-<form action="{% url 'main:boards' user.username %}" method="post">
-    {% csrf_token %}
-    <input name="name" type="text">
-    <select name="type">
-        {% for type in board_types %}
-            <option value="{{ type.0 }}">{{ type.1 }}</option>
+<div class="container mt-5">
+    <h3 class="mb-5">Boards</h3>
+
+    <button id="createBoardBtn" type="button" class="btn btn-primary">New Board</button>
+
+    <div id="createBoard" class="mt-5 mb-5" style="display: none;">
+        <h4>Create new board</h4>
+        <form action="{% url 'main:boards' user.username %}" class="form-short" style=" border: none" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input name="name" class="form-control" type="text">
+
+            </div>
+            <div class="form-group">
+                <select name="type" class="form-control">
+                    {% for type in board_types %}
+                        <option value="{{ type.0 }}">{{ type.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <input type="submit">
+        </form>
+    </div>
+
+
+    <div class="boards mt-5">
+        {% for board in boards %}
+            <div class="board">
+                <h4>
+                    <a href="{% url 'main:board' board.author.username board.token %}">
+                        {{ board.name }}
+
+                    </a>
+                </h4>
+                <h6>
+                    {{ board.type }}
+                </h6>
+                <p>
+                    {{ board.author.username }}
+                </p>
+            </div>
         {% endfor %}
-    </select>
-    <input type="submit">
-</form>
 
-{% for board in boards %}
-    <div>
-        <h4>
-            <a href="{% url 'main:board' board.author.username board.token %}">
-                {{ board.name }}
+        <h3 class="mt-5">Your teams</h3>
 
-            </a>
-        </h4>
-        <h3>
-            {{ board.type }}
-        </h3>
-        <p>
-            {{ board.author.username }}
-        </p>
+        {% for teammate_board in teammate_boards %}
+            <div class="board">
+                <h4>
+                    <a href="{% url 'main:board' teammate_board.board.author.username teammate_board.board.token %}">
+                        {{ teammate_board.board.name }}
+
+                    </a>
+                </h4>
+                <h6>
+                    {{ teammate_board.board.type }}
+                </h6>
+                <p>
+                    {{ teammate_board.board.author.username }}
+                </p>
+            </div>
+        {% endfor %}
     </div>
-{% endfor %}
 
-Your teams
 
-{% for teammate_board in teammate_boards %}
-    <div>
-        <h4>
-            <a href="{% url 'main:board' teammate_board.board.author.username teammate_board.board.token %}">
-                {{ teammate_board.board.name }}
-
-            </a>
-        </h4>
-        <h3>
-            {{ teammate_board.board.type }}
-        </h3>
-        <p>
-            {{ teammate_board.board.author.username }}
-        </p>
-    </div>
-{% endfor %}
-
+</div>
+<script>
+    $("#createBoardBtn").click(function () {
+        $("#createBoard").toggle();
+    });
+</script>
 
 </body>
 </html>
+
