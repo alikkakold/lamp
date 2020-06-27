@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-
+import mainapp.utils as utils
 from mainapp.models import Board, Teammate, Column, Task
 
 
@@ -51,8 +51,10 @@ def invite(request, board):
 
 
 def board(request, user, board):
-    board_ = get_object_or_404(Board, author__username=user, token=board)
+    board_ = get_object_or_404(Board, author__username=user, id=board)
     users = Teammate.objects.filter(board=board_)
+    if not (request.user == board_.author or utils.in_list(request.user, [user.user for user in users])):
+        return redirect("/")
 
     data = []
 
@@ -62,6 +64,7 @@ def board(request, user, board):
         c['name'] = column.name
         c['tasks'] = Task.objects.filter(column=column)
         data.append(c)
+
     return render(request, 'mainapp/board.html', {'board': board_,
                                                   'data': data,
                                                   'users': users})
