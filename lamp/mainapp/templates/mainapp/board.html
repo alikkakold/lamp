@@ -1,24 +1,74 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lamp! - {{ board.name }}</title>
+    <title>Lamp - Sign up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
-<body>
-<h3>{{ board.name }} ({{ board.author.username }})</h3>
+<body style="width: 100%; height: 100%; background-image: url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/1537x1920/117d138c6be2845aadfd039c1b319cf7/photo-1580745389677-2b603a39011d.jpg')">
+{% include 'mainapp/includes/navbar.html' %}
 
-{% for col in data %}
-    <div>
-        <h3>{{ col.name }}</h3>
-        <div>
-            {% for task in col.tasks %}
-                <p>{{ task.name }}</p>
-            {% endfor %}
-
+<div class="container-fluid mt-5">
+    <h3>{{ board.name }} ({{ board.author.username }})</h3>
+    <div class="boardTeammates">
+        {% for user in users %}
+            <div class="boardTeammate">
+                {{ user.user.username }}
+            </div>
+        {% endfor %}
+        <div class="boardTeammate">
+            {{ board.author.username }}
         </div>
     </div>
-{% endfor %}
 
+    <div class="boardContent mt-3">
+        {% for col in data %}
+            <div class="columnWrapper">
+                <div class="column">
+                    <h4 class="columnHeader">{{ col.name }}</h4>
+                    <div class="task">
+                        {% for task in col.tasks %}
+                            <div class="columnTask">
+                                <p>{{ task.name }}</p>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <span class="addTask">
+                        + Add one more task
+                    </span>
+
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+
+<script>
+    let tm = document.getElementsByClassName("boardTeammate");
+    for (let user of tm) {
+        let name = user.innerText.split(' ');
+        console.log(name);
+        let res = "";
+        for (let n of name) {
+            res += n[0]
+        }
+        console.log(res);
+
+        user.innerText = res;
+    }
+</script>
 
 </body>
 </html>

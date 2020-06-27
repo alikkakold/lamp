@@ -52,6 +52,7 @@ def invite(request, board):
 
 def board(request, user, board):
     board_ = get_object_or_404(Board, author__username=user, token=board)
+    users = Teammate.objects.filter(board=board_)
 
     data = []
 
@@ -61,7 +62,6 @@ def board(request, user, board):
         c['name'] = column.name
         c['tasks'] = Task.objects.filter(column=column)
         data.append(c)
-
-
     return render(request, 'mainapp/board.html', {'board': board_,
-                                                  'data': data})
+                                                  'data': data,
+                                                  'users': users})
