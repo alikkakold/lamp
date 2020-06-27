@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 
 # Create your models here.
@@ -18,7 +20,8 @@ class Board(models.Model):
     name = models.CharField(max_length=100, verbose_name="Board's name")
     type = models.CharField(max_length=15, choices=CATEGORIES, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    token = models.CharField(max_length=100, verbose_name="Board's token", default=hash(name))
+    token = models.CharField(max_length=100, verbose_name="Board's token",
+                             default=hash(str(name) + str(random.randint(1111111, 9999999))), unique=True)
 
 
 class Column(models.Model):
@@ -46,6 +49,7 @@ class Mark(models.Model):
 class TaskParticipate(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
+
 
 class Teammate(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

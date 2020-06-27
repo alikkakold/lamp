@@ -1,0 +1,149 @@
+.navbar a {
+    color: white !important;
+}
+
+button[type="submit"], button[type="button"] {
+    background: #683a75;
+    border: none;
+}
+
+.board {
+    background-color: #683a75;
+    width: 25%;
+    display: inline-block;
+    border-radius: 7px;
+    padding: 10px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.board a {
+    color: white;
+}
+
+.board a:hover {
+    color: #ebebeb;
+}
+
+@media (max-width: 480px) {
+    .form-short {
+        width: 100%;
+    }
+
+    .boardContent {
+        /*height: 96vh;*/
+    }
+}
+
+.addTask {
+    cursor: pointer;
+}
+
+
+@media (min-width: 481px) and (max-width: 1000px) {
+    .form-short {
+        width: 80%;
+    }
+
+    .boardContent {
+        /*height: 90vh;*/
+    }
+}
+
+@media (min-width: 1001px) {
+    .form-short {
+        width: 50%;
+    }
+
+    .boardContent {
+        /*height: 84vh;*/
+    }
+}
+
+
+.boardContent {
+    overflow: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 15px;
+
+}
+
+.column {
+    background-color: #ebecf0;
+    padding: 10px;
+    border-radius: 5px;
+    height: 100% !important;
+}
+
+.columnHeader {
+    font-size: 17px;
+    color: #172b4d;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+.columnWrapper {
+    width: 272px;
+    margin: 0 4px;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.columnTask {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
+    cursor: pointer;
+    display: block;
+    padding: 5px;
+    margin-bottom: 8px;
+    max-width: 300px;
+    min-height: 20px;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
+}
+
+.boardTeammate {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: #ffffff;
+    border-radius: 100px;
+    font-size: 20px;
+    line-height: 50px;
+    text-align: center;
+    margin-right: -7px;
+}
+
+.addTask {
+    color: #5e6c84;
+}
+
+@media (min-width: 980px) {
+    /* Let's get this party started */
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    /* Track */
+    .boardContent::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    .boardContent::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: rgba(235, 237, 248, 0.8);
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .boardContent::-webkit-scrollbar-thumb:window-inactive {
+        background: rgba(235, 237, 248, 0.4);
+    }
+}
